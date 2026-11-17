@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>WindWave Endpoint Control | Wind Energy for Smart Cities</title>
+  <meta name="description" content="Endpoint data management with JavaScript, shown as a wind energy smart city control room with a cloud architecture diagram." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=JetBrains+Mono:wght@400;600&family=Inter:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="endpointwind-style.css" />
+</head>
+<body>
+  <header class="epw-hero">
+    <svg class="epw-streams" viewBox="0 0 1200 400" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M-50 90 C 200 40, 400 160, 650 90 S 1050 40, 1250 100" />
+      <path d="M-50 160 C 250 110, 450 230, 700 160 S 1000 110, 1250 170" />
+      <path d="M-50 230 C 180 180, 420 300, 640 230 S 1020 180, 1250 240" />
+      <path d="M-50 300 C 260 250, 460 360, 720 300 S 1040 250, 1250 310" />
+    </svg>
+
+    <div class="epw-hero-inner">
+      <p class="epw-tag">&lt;practicum&gt; endpoint data management &lt;/practicum&gt;</p>
+      <h1>WIND<span>WAVE</span></h1>
+      <p class="epw-lead">Harnessing wind energy for smart cities. Every turbine is an endpoint, and every endpoint is managed with JavaScript.</p>
+      <nav>
+        <a href="#theory">VI // Theory</a>
+        <a href="#setup">VII // Architecture</a>
+        <a href="#console">Endpoint Console</a>
+      </nav>
+    </div>
+
+    <svg class="epw-hero-turbine" viewBox="0 0 100 160" aria-hidden="true">
+      <path d="M48 66 L52 66 L56 160 L44 160 Z" class="epw-t-tower" />
+      <g class="epw-t-blades">
+        <path d="M50 60 L46.5 8 Q50 2 53.5 8 Z" />
+        <path d="M50 60 L46.5 8 Q50 2 53.5 8 Z" transform="rotate(120 50 60)" />
+        <path d="M50 60 L46.5 8 Q50 2 53.5 8 Z" transform="rotate(240 50 60)" />
+      </g>
+      <circle cx="50" cy="60" r="4.5" class="epw-t-hub" />
+    </svg>
+  </header>
+
+  <main>
+    <section id="theory" class="epw-panel">
+      <h2><span>VI</span> Minimum Underpinning Theory</h2>
+      <p>
+        The development of webpages for endpoint data management using JavaScript is fundamentally
+        rooted in several core theories and concepts that enable dynamic, interactive, and efficient
+        web applications. These underpinning theories focus on how client-server communication works,
+        the importance of asynchronous programming, and the principles of data flow in modern web
+        applications.
+      </p>
+      <ul class="epw-chips">
+        <li>Client-server communication</li>
+        <li>HTTP methods</li>
+        <li>Asynchronous programming</li>
+        <li>Promises &amp; async/await</li>
+        <li>JSON</li>
+        <li>Data flow</li>
+      </ul>
+    </section>
+
+    <section id="setup" class="epw-panel">
+      <h2><span>VII</span> Practicum Set-up</h2>
+      <p class="epw-sub">Architecture of the endpoint system. Use the buttons to send a request through it and watch the data flow light up.</p>
+
+      <div class="epw-diagram-tools">
+        <button class="epw-btn" type="button" id="epw-run-static">&#9654; Load static assets</button>
+        <button class="epw-btn epw-btn-alt" type="button" id="epw-run-api">&#9654; Call data endpoint</button>
+      </div>
+
+      <div class="epw-diagram-wrap">
+        <svg id="epw-diagram" viewBox="0 0 760 470" role="img" aria-label="Architecture: devices, CDN, load balancer, Cloud Run, Firestore, Storage and Secret Manager">
+          <defs>
+            <marker id="epw-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0 0 L10 5 L0 10 z" class="epw-arrowhead" />
+            </marker>
+          </defs>
+
+          <!-- Zones -->
+          <rect class="epw-zone epw-zone-client" x="14" y="12" width="732" height="120" rx="10" />
+          <text class="epw-zone-label" x="380" y="34" text-anchor="middle">CLIENT</text>
+          <rect class="epw-zone epw-zone-cloud" x="14" y="152" width="732" height="306" rx="10" />
+          <text class="epw-zone-label" x="30" y="174">CITY CLOUD PROJECT</text>
+          <text class="epw-zone-label" x="380" y="194" text-anchor="middle">APPLICATION</text>
+
+          <!-- Edges -->
+          <path id="epw-eA" class="epw-edge" d="M380 98 V150 H165 V214" marker-end="url(#epw-arrow)" />
+          <path id="epw-eB" class="epw-edge" d="M165 262 V292" marker-end="url(#epw-arrow)" />
+          <path id="epw-eF" class="epw-edge" d="M165 340 V402" marker-end="url(#epw-arrow)" />
+          <path id="epw-eC" class="epw-edge" d="M260 316 H480" marker-end="url(#epw-arrow)" />
+          <path id="epw-eD" class="epw-edge" d="M595 292 V238" marker-end="url(#epw-arrow)" />
+          <path id="epw-eE" class="epw-edge" d="M595 402 V340" marker-end="url(#epw-arrow)" />
+
+          <!-- Step badges -->
+          <g class="epw-badge"><circle cx="165" cy="150" r="11" /><text x="165" y="154" text-anchor="middle">1</text></g>
+          <g class="epw-badge"><circle cx="165" cy="372" r="11" /><text x="165" y="376" text-anchor="middle">2</text></g>
+          <g class="epw-badge"><circle cx="370" cy="316" r="11" /><text x="370" y="320" text-anchor="middle">3</text></g>
+          <g class="epw-badge"><circle cx="595" cy="265" r="11" /><text x="595" y="269" text-anchor="middle">4</text></g>
+          <g class="epw-badge"><circle cx="595" cy="371" r="11" /><text x="595" y="375" text-anchor="middle">5</text></g>
+
+          <!-- Nodes -->
+          <g id="epw-n-device" class="epw-node">
+            <rect x="285" y="48" width="90" height="46" rx="8" /><text x="330" y="76" text-anchor="middle">Device</text>
+            <rect x="385" y="48" width="90" height="46" rx="8" /><text x="430" y="76" text-anchor="middle">Device</text>
+          </g>
+          <g id="epw-n-cdn" class="epw-node">
+            <rect x="80" y="214" width="170" height="48" rx="8" /><text x="165" y="243" text-anchor="middle">Cloud CDN</text>
+          </g>
+          <g id="epw-n-lb" class="epw-node">
+            <rect x="80" y="292" width="170" height="48" rx="8" /><text x="165" y="321" text-anchor="middle">Cloud Load Balancing</text>
+          </g>
+          <g id="epw-n-storage" class="epw-node">
+            <rect x="80" y="402" width="170" height="48" rx="8" /><text x="165" y="431" text-anchor="middle">Cloud Storage</text>
+          </g>
+          <g id="epw-n-fs" class="epw-node">
+            <rect x="480" y="190" width="230" height="48" rx="8" /><text x="595" y="219" text-anchor="middle">Cloud Firestore</text>
+          </g>
+          <g id="epw-n-run" class="epw-node">
+            <rect x="480" y="292" width="230" height="48" rx="8" /><text x="595" y="321" text-anchor="middle">Cloud Run</text>
+          </g>
+          <g id="epw-n-secret" class="epw-node">
+            <rect x="480" y="402" width="230" height="48" rx="8" /><text x="595" y="431" text-anchor="middle">Secret Manager</text>
+          </g>
+        </svg>
+      </div>
+
+      <ol class="epw-steps">
+        <li><b>1</b> Devices send requests through Cloud CDN, then Cloud Load Balancing.</li>
+        <li><b>2</b> Static pages and files are served from Cloud Storage.</li>
+        <li><b>3</b> Data requests are routed to the Cloud Run service.</li>
+        <li><b>4</b> Cloud Run reads and writes turbine records in Cloud Firestore.</li>
+        <li><b>5</b> Secret Manager gives Cloud Run its credentials securely.</li>
+      </ol>
+    </section>
+
+    <section id="console" class="epw-panel">
+      <h2><span>//</span> Endpoint Console: Turbine Fleet</h2>
+      <p class="epw-sub">Each action is an async request (GET, POST, PUT, DELETE) to a simulated endpoint. The diagram above lights up on every call.</p>
+
+      <div class="epw-stats">
+        <div class="epw-stat"><span>Requests</span><strong id="epw-s-total">0</strong></div>
+        <div class="epw-stat"><span>Success</span><strong id="epw-s-ok">0</strong></div>
+        <div class="epw-stat"><span>Errors</span><strong id="epw-s-err">0</strong></div>
+        <div class="epw-stat"><span>Avg latency</span><strong id="epw-s-ms">0 ms</strong></div>
+        <div class="epw-stat"><span>Online output</span><strong id="epw-s-kw">0 kW</strong></div>
+      </div>
+
+      <div class="epw-console">
+        <div class="epw-left">
+          <form id="epw-form" class="epw-form" novalidate>
+            <h3>POST /turbines</h3>
+            <label for="epw-district">District</label>
+            <select id="epw-district">
+              <option value="">Choose district...</option>
+              <option>Harbour Front</option>
+              <option>Tech Park</option>
+              <option>Old Town</option>
+              <option>Green Belt</option>
+            </select>
+            <label for="epw-kw">Capacity (kW)</label>
+            <input id="epw-kw" type="number" placeholder="100 to 3000" />
+            <button class="epw-btn" type="submit">Add turbine</button>
+          </form>
+
+          <div class="epw-form">
+            <h3>Network</h3>
+            <label class="epw-check"><input type="checkbox" id="epw-outage" /> Simulate outage (503)</label>
+            <button class="epw-btn epw-btn-alt" type="button" id="epw-refresh">GET /turbines</button>
+          </div>
+        </div>
+
+        <div class="epw-right">
+          <div class="epw-table-wrap">
+            <table class="epw-table">
+              <thead><tr><th>ID</th><th>District</th><th>Status</th><th>kW</th><th>Actions</th></tr></thead>
+              <tbody id="epw-rows"></tbody>
+            </table>
+          </div>
+          <p class="epw-banner" id="epw-banner" role="alert" hidden></p>
+        </div>
+      </div>
+
+      <div class="epw-terminal">
+        <h3>Request log</h3>
+        <ul id="epw-log" aria-live="polite"><li class="epw-dim">Waiting for requests...</li></ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="epw-footer">WINDWAVE // Wind energy for smart cities // HTML, CSS and JavaScript</footer>
+
+  <script src="endpointwind-script.js"></script>
+</body>
+</html>
